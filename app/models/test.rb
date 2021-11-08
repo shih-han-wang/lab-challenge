@@ -1,4 +1,8 @@
 class Test
+  include ActiveModel::Model
+
+  class NotFoundError < StandardError; end
+
   DATA = [
     {
       id: 'CHO',
@@ -37,4 +41,14 @@ class Test
       sample_tube_type: :purple
     }
   ]
+
+  attr_accessor :id, :name, :sample_volume_requirement, :sample_tube_type
+
+  def self.find_by_id(id)
+    test_data = DATA.find { |data| data[:id] === id.upcase }
+
+    raise NotFoundError unless test_data
+
+    new(**test_data)
+  end
 end

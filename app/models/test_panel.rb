@@ -1,4 +1,6 @@
 class TestPanel
+  include ActiveModel::Model
+
   class NotFoundError < StandardError; end
 
   DATA = [
@@ -19,10 +21,19 @@ class TestPanel
     }
   ]
 
+  attr_accessor :id, :tests, :price
+  attr_reader :tests_data
+
+  def initialize(attribute = {})
+    super
+    @tests_data = tests.map { |id| Test.find_by_id(id) }
+  end
+
   def self.find_by_id(id)
     panel = DATA.find { |panel| panel[:id] === id.upcase }
 
     raise NotFoundError unless panel
-    panel
+
+    new(**panel)
   end
 end
