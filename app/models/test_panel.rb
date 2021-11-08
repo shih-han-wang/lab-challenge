@@ -1,4 +1,6 @@
 class TestPanel
+  class NotFoundError < StandardError; end
+
   DATA = [
     {
       id: 'TP1',
@@ -18,6 +20,9 @@ class TestPanel
   ]
 
   def self.find_by_id(id)
-    DATA.find { |panel| panel[:id] === id.upcase }
+    panel = DATA.find { |panel| panel[:id] === id.upcase }
+
+    raise NotFoundError unless panel
+    panel
   end
 end
