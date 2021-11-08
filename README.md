@@ -35,7 +35,7 @@ A request to the API `http://localhost:3000/test_panels/TP2` should return the f
 }
 ```
 
-The endpoint also supports an 'include' query parameter that returns an 'included' field along with the response. e.g. `http://localhost:3000/test_panels/TP2` should return the following JSON
+The endpoint also supports an 'include' query parameter that returns an 'included' field along with the response. e.g. `http://localhost:3000/test_panels/TP2?included=test` should return the following JSON
 
 ```json
 {
