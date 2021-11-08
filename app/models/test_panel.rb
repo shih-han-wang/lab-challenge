@@ -29,6 +29,14 @@ class TestPanel
     @tests_data = tests.map { |id| Test.find_by_id(id) }
   end
 
+  def sample_tube_types
+    tests_data.map(&:sample_tube_type)
+  end
+
+  def sample_volume_requirement
+    tests_data.sum(&:sample_volume_requirement)
+  end
+
   def self.find_by_id(id)
     panel = DATA.find { |panel| panel[:id] === id.upcase }
 

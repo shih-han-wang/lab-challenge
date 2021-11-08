@@ -2,7 +2,7 @@ class TestPanelsController < ApplicationController
   rescue_from TestPanel::NotFoundError, with: :rescue_from_not_found
 
   def show
-    render json: test_panel
+    render json: { data: ::TestPanelSerializer.new(test_panel).as_json }
   end
 
   private
