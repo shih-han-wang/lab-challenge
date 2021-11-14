@@ -24,7 +24,7 @@ class TestPanelsController < ApplicationController
   end
 
   def rescue_from_not_found
-    render_json_error(message: 'Test panel not found', status: :not_found)
+    render_json_error(title: 'Not found', detail: 'Test panel not found', status: 404)
   end
 
   def test_panel
@@ -38,6 +38,7 @@ class TestPanelsController < ApplicationController
   def validate_included_params
     return if included_params.blank? || VALID_INCLUDED_VALUES.include?(included_params)
 
-    render_json_error(message: "#{included_params} is not valid for the included params", status: :unprocessable_entity)
+    render_json_error(title: 'Invalid params', detail: "#{included_params} is not valid for the included params",
+                      status: 400)
   end
 end
