@@ -35,12 +35,12 @@ describe 'Requesting a test panel', type: :request do
       let(:included_param) { 'invalid included' }
       let(:params) { { included: included_param } }
 
-      it 'should respond with an HTTP 422 status' do
-        expect(response.status).to eq(422)
+      it 'should respond with an HTTP 400 status' do
+        expect(response.status).to eq(400)
       end
 
       it 'should return correct error' do
-        expect(body['error']).to eq("#{included_param} is not valid for the included params")
+        expect(body['errors'][0]['detail']).to eq("#{included_param} is not valid for the included params")
       end
     end
   end
@@ -48,12 +48,12 @@ describe 'Requesting a test panel', type: :request do
   context 'with an invalid test panel ID' do
     let(:test_panel_id) { 'INVALIDID' }
 
-    it 'should respond with an HTTP 400 status' do
+    it 'should respond with an HTTP 404 status' do
       expect(response.status).to eq(404)
     end
 
     it 'should return correct error' do
-      expect(body['error']).to eq('Test panel not found')
+      expect(body['errors'][0]['detail']).to eq('Test panel not found')
     end
   end
 end
